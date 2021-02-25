@@ -1,3 +1,38 @@
+# Buntimer (Earthstar edition)
+
+In development!
+
+This is a visual timer to help you remember to do things throughout the day.  Eating, laundry, appointments.
+
+Each timer has a progress bar that counts down until time runs out, then the whole row turns red and stares you in the face until you click Done.  The progress bar is 60 minutes wide.
+
+After that, done items will be hidden (unless you want to see them).
+
+![](screenshot.png)
+
+Each row is stored in a single Earthstar document, as JSON.  This means any change to a row will clobber other simultaneous changes (e.g. you can't have two people changing different parts of a row at the same time).  The use case is mainly personal so this is fine.
+
+We use ephemeral documents that last 7 days to avoid clutter building up.  Normally you will only want to see today's tasks anyway.
+
+Path:
+```
+    /buntimer-v1/timers/common/${id}!.json
+```
+
+TODO:
+* Click description to edit
+* Click absolute time to edit (currently you can only click the relative time)
+* Button to show/hide completed tasks
+* Hide tasks from yesterday and older
+* Buttons to view previous days' tasks
+* Custom color theme for Earthbar
+* Hide Earthbar behind a hamburger button
+* CSS transitions for the progress bar colors
+* Make bars taller so they are more annoying
+* Pulse the color of red bars once a minute
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
