@@ -124,9 +124,10 @@
                    /* --base0E       purple */
     --cCode:      var(--base0F);  /* magenta or brown */
 
-    --cRelax: var(--base0B);
+    --cRelax: #25422c;
     --cSoon: var(--base0A);
     --cLate: var(--base08);
+    --cDone: var(--base02);
 }
 
 * {
