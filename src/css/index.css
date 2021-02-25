@@ -1,0 +1,243 @@
+
+/* overall settings */
+:root {
+    --test-border-width: 0px;
+
+    /* sizes / spacings */
+    --s0: 0px;
+    --s1: 5px;
+    --s2: 10px;
+    --s3: 20px;
+    --s4: 30px;
+
+    --round-card: var(--s1);
+    --round-button: var(--s2);
+
+    /* start off with a default base16 theme which we'll override from javascript later.
+        BASE16 colors
+
+        00 background...
+        07 text
+
+        08 red
+        09 orange
+        0A yellow
+        0B green
+        0C cyan
+        0D blue
+        0E purple
+        0F brown or magenta
+    */
+
+    /* atelier heath dark */
+    --base00: #1b181b;
+    --base01: #292329;
+    --base02: #695d69;
+    --base03: #776977;
+    --base04: #9e8f9e;
+    --base05: #ab9bab;
+    --base06: #d8cad8;
+    --base07: #f7f3f7;
+    --base08: #ca402b;
+    --base09: #a65926;
+    --base0A: #bb8a35;
+    --base0B: #918b3b;
+    --base0C: #159393;
+    --base0D: #516aec;
+    --base0E: #7b59c0;
+    --base0F: #cc33cc;
+
+    /* simple dark */
+    /*
+    --base00: #000;
+    --base01: #282828;
+    --base02: #505050;
+    --base03: #777;
+    --base04: #999;
+    --base05: #bbb;
+    --base06: #ddd;
+    --base07: #fff;
+    --base08: #CC342B;
+    --base09: #F96A38;
+    --base0A: #FBA922;
+    --base0B: #918b3b;
+    --base0C: #159393;
+    --base0D: #516aec;
+    --base0E: #7b59c0;
+    --base0F: #cc33cc;
+    */
+
+    /* simple light */
+    /*
+    --base00: #fff;
+    --base01: #ddd;
+    --base02: #bbb;
+    --base03: #999;
+    --base04: #777;
+    --base05: #505050;
+    --base06: #282828;
+    --base07: #000;
+    --base08: #CC342B;
+    --base09: #F96A38;
+    --base0A: #FBA922;
+    --base0B: #918b3b;
+    --base0C: #159393;
+    --base0D: #516aec;
+    --base0E: #7b59c0;
+    --base0F: #cc33cc;
+    */
+
+    /* dracula */
+    /*
+    --base00: #282936;
+    --base01: #3a3c4e;
+    --base02: #4d4f68;
+    --base03: #626483;
+    --base04: #62d6e8;
+    --base05: #e9e9f4;
+    --base06: #f1f2f8;
+    --base07: #f7f7fb;
+    --base08: #ea51b2;
+    --base09: #b45bcf;
+    --base0A: #00f769;
+    --base0B: #ebff87;
+    --base0C: #a1efe4;
+    --base0D: #62d6e8;
+    --base0E: #b45bcf;
+    --base0F: #00f769;
+    */
+
+    /* PALETTE: assign colors to jobs on the page */
+    --cPage: var(--base00);
+    --cCard: var(--base01);
+
+    --cFaint: var(--base03);
+    --cSemiFaint: var(--base05);
+    --cText: var(--base07);
+
+                   /* --base08       red */
+    --cCardTitle: var(--base09);  /* orange */
+                   /* --base0A       yellow */
+    --cPre:       var(--base0B);  /* avocado */
+    --cLink:      var(--base0C);  /* cyan */
+    --cLinkExt:   var(--base0D);  /* blue */
+                   /* --base0E       purple */
+    --cCode:      var(--base0F);  /* magenta or brown */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    /*-webkit-font-smoothing: antialiased;*/
+    /*-moz-osx-font-smoothing: grayscale;*/
+    background-color: var(--cPage);
+    color: var(--cText);
+}
+
+a {
+    color: var(--cLink);
+}
+a.ext {
+    color: var(--cLinkExt);
+}
+a.normal {
+    color: inherit;
+    text-decoration: none;
+}
+
+hr {
+    height: 2px;
+    border: none !important;
+    background-color: var(--cFaint);
+}
+
+.left {
+    text-align: left;
+}
+.center {
+    text-align: center;
+}
+.right {
+    text-align: right;
+}
+
+.textSemiFaint {
+    color: var(--cSemiFaint);
+}
+
+.textSemiFaint a {
+    color: var(--cSemiFaint);
+}
+
+.textFaint {
+    color: var(--cFaint);
+}
+
+.textFaint a {
+    color: var(--cFaint);
+}
+
+.textSmall {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.buttonHollowFaint {
+    color: var(--base03);
+    background-color: var(--base00);
+    border-radius: var(--round-button);
+    border: 2px solid var(--base02) !important;
+    font-weight: bold;
+    padding: 5px 7px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.buttonHollowStrong {
+    color: var(--base07);
+    background-color: var(--base00);
+    border-radius: var(--round-button);
+    border: 2px solid var(--base05) !important;
+    font-weight: bold;
+    padding: 5px 7px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.buttonSolidFaint {
+    color: var(--base00);
+    background-color: var(--base03);
+    border-radius: var(--round-button);
+    font-weight: bold;
+    padding: 5px 7px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.buttonSolidStrong {
+    color: var(--base00);
+    background-color: var(--base05);
+    border-radius: var(--round-button);
+    font-weight: bold;
+    padding: 5px 7px;
+    font: inherit;
+    cursor: pointer;
+}
+
+summary {
+    margin-top: var(--s1);
+    margin-bottom: var(--s2);
+}
+summary > h1,
+summary > h2,
+summary > h3,
+summary > h4,
+summary > h5,
+summary > h6 {
+    display: inline;
+}
