@@ -123,6 +123,10 @@
     --cLinkExt:   var(--base0D);  /* blue */
                    /* --base0E       purple */
     --cCode:      var(--base0F);  /* magenta or brown */
+
+    --cRelax: var(--base0B);
+    --cSoon: var(--base0A);
+    --cLate: var(--base08);
 }
 
 * {
