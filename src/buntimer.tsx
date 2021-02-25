@@ -89,7 +89,10 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     let query: Query = {
         pathStartsWith: '/buntimer-v1/timers/common/',
         pathEndsWith: '.json',
-        contentLengthGt: 0,
+        // we can't use this query option because it doesn't work on path
+        // queries, which are used internally by useDocuments() to know
+        // when to refresh...
+        //contentLengthGt: 0,
     }
 
     // get earthstar stuff from hooks
@@ -105,6 +108,7 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
         try {
             timers.push(JSON.parse(doc.content));
         } catch (err) {
+            // skip empty docs and non-json content
         }
     }
     // sort oldest first
