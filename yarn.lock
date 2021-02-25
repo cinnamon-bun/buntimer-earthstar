@@ -1802,6 +1802,13 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/better-sqlite3@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@types/better-sqlite3/-/better-sqlite3-5.4.1.tgz#d45600bc19f8f41397263d037ca9b0d05df85e58"
+  integrity sha512-8hje3Rhsg/9veTkALfCwiWn7VMrP1QDwHhBSgerttYPABEvrHsMQnU9dlqoM6QX3x4uw3Y06dDVz8uDQo1J4Ng==
+  dependencies:
+    "@types/integer" "*"
+
 "@types/eslint@^7.2.6":
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.2.6.tgz#5e9aff555a975596c03a98b59ecd103decc70c3c"
@@ -1839,6 +1846,11 @@
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/@types/html-minifier-terser/-/html-minifier-terser-5.1.1.tgz#3c9ee980f1a10d6021ae6632ca3e79ca2ec4fb50"
   integrity sha512-giAlZwstKbmvMk1OO7WXSj4OZ0keXAcl2TQq4LWHiiPH2ByaH7WeUzng+Qej8UPxxv+8lRTuouo0iaNDBuzIBA==
+
+"@types/integer@*":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@types/integer/-/integer-1.0.1.tgz#025d87e30d97f539fcc6087372af7d3672ffbbe6"
+  integrity sha512-DmZDpSVnsuBrOhtHwE1oKmUJ3qVjHhhNQ7WnZy9/RhH3A24Ar+9o4SoaCWcTzQhalpRDIAMsfdoZLWNJtdBR7A==
 
 "@types/isomorphic-fetch@0.0.35":
   version "0.0.35"
@@ -1886,6 +1898,13 @@
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
+
+"@types/multibase@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@types/multibase/-/multibase-0.6.0.tgz#a729395114a875918ac139ab3107866975a9329d"
+  integrity sha512-PhQiA4pCcIG5yibX/G7K7mk/CXw0HTY98R+efcbbfce9WOyAGbIVqY3zv5kMm+vMAunY29aeOtQ96ePjeX417w==
+  dependencies:
+    "@types/node" "*"
 
 "@types/node@*":
   version "14.14.31"
@@ -2272,6 +2291,11 @@
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
+
+"@zxing/text-encoding@0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@zxing/text-encoding/-/text-encoding-0.9.0.tgz#fb50ffabc6c7c66a0c96b4c03e3d9be74864b70b"
+  integrity sha512-U/4aVJ2mxI0aDNI8Uq0wEhMgY+u4CNtEb0om3+y3+niDAsoTCOB33UF0sxpzqzdqXLqmvc+vZyAt4O8pPdfkwA==
 
 abab@^2.0.3:
   version "2.0.5"
@@ -2909,7 +2933,7 @@ bencode@^2.0.1:
   dependencies:
     safe-buffer "^5.1.1"
 
-better-sqlite3@^7.0.1:
+better-sqlite3@^7.1.1:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/better-sqlite3/-/better-sqlite3-7.1.2.tgz#95565757a834093f1ecae0d4457f60820ed5dd2a"
   integrity sha512-8FWYnJ6Bx94MBX03J5Ka7sTRlvXXMEm4FW2Op7nM8ErQZeyALYLmSlbMBnfr4cMpS0tj0aYZv0a+26G2YJuIjg==
@@ -3372,7 +3396,7 @@ chloride-test@^1.1.0:
   dependencies:
     json-buffer "^2.0.11"
 
-chloride@^2.2.14:
+chloride@^2.3.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/chloride/-/chloride-2.4.1.tgz#295a30f2ffbe316b6c4c82550dcbc262703f082d"
   integrity sha512-ZiID87W2o2llvuF4C7Fvt9GJisazSdMsSkjAq4WaMed9zn77nlkcy08ZfrPtOGAXyaxTDj0VjnuyD97EdJLz3g==
@@ -3642,6 +3666,13 @@ concat-stream@^1.5.0:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
+
+concurrency-friends@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/concurrency-friends/-/concurrency-friends-0.2.0.tgz#572142df624c7aa03e9994160c8cc5ebdd3e1416"
+  integrity sha512-/JqCGigxAKGHlkWQ4OXe+C+hKU4q7Wr0fa5aPM3eh9FNiv34Wgsl3LsmuOswK3hdoMt8Epv9B1C24biWFrIRlQ==
+  dependencies:
+    stable "^0.1.8"
 
 confusing-browser-globals@^1.0.10:
   version "1.0.10"
@@ -4457,19 +4488,24 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
-earthstar@^5.7.6:
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/earthstar/-/earthstar-5.8.0.tgz#a1877eee636eaf81bd056dabfcd7da0c96ad2503"
-  integrity sha512-iqiWEL0nyIbbC8a7L1jczPvzdRzLiREl3MytxBerXHPdk/3vlcMiMuOudR5igmn+KjvCfQlaQ5yRg67z1zXJAQ==
+earthstar@^6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/earthstar/-/earthstar-6.3.1.tgz#8853792904fbb90efeb5efd7c7e80ab8dd331442"
+  integrity sha512-+kDIE+Fzk+R98zwKrUo7AiEWYtylupn4PRnFrsRrLA+vtljBmuoaSjo4jZYvTiCYb0pAbv6T0eOiGnWw0atDJQ==
   dependencies:
+    "@types/better-sqlite3" "^5.4.1"
     "@types/isomorphic-fetch" "0.0.35"
+    "@types/multibase" "^0.6.0"
     bencode "^2.0.1"
-    better-sqlite3 "^7.0.1"
-    chloride "^2.2.14"
+    better-sqlite3 "^7.1.1"
+    chalk "^4.1.0"
+    chloride "^2.3.0"
+    concurrency-friends "^0.2.0"
     fast-equals "^2.0.0"
     isomorphic-fetch "^2.2.1"
-    multibase "^0.7.0"
-    tslib "^2.0.0"
+    lodash.debounce "^4.0.8"
+    multibase "^2.0.0"
+    tslib "^2.0.3"
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"
@@ -7677,13 +7713,14 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
 
-multibase@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/multibase/-/multibase-0.7.0.tgz#1adfc1c50abe05eefeb5091ac0c2728d6b84581b"
-  integrity sha512-TW8q03O0f6PNFTQDvh3xxH03c8CjGaaYrjkl9UQPG6rz53TQzzxJVCIWVjzcbN/Q5Y53Zd0IBQBMVktVgNx4Fg==
+multibase@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/multibase/-/multibase-2.0.0.tgz#e20a2a14813fa435dc69c702909209ac0741919e"
+  integrity sha512-xIrqUVsinSlFjqj+OtEgCJ6MRl5hXjHMBPWsUt1ZGSRMx8rzm+7hCLE4wDeSA3COomlUC9zHCoUlvWjvAMtfDg==
   dependencies:
     base-x "^3.0.8"
     buffer "^5.5.0"
+    web-encoding "^1.0.2"
 
 multicast-dns-service-types@^1.1.0:
   version "1.1.0"
@@ -9460,10 +9497,10 @@ react-dom@~16.13.1:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-earthstar@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-earthstar/-/react-earthstar-1.1.1.tgz#7365b256d198fba5f6c38640467acc11622ee877"
-  integrity sha512-Cvk9Eb2dPefunESzknYvlaFWgNFpnG/f99NBastfYtQquJD6t0jmYnjT1yQBhb2jfgpXArrP0YgJ+A4uu8OI3w==
+react-earthstar@^2.0.0-beta.0:
+  version "2.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/react-earthstar/-/react-earthstar-2.0.0-beta.0.tgz#d77374aec68043d548841a6bdfe0e1812c66d4a0"
+  integrity sha512-Tx4vGuHcumwRYWkeHncgrS0SX4FBFZ4qziGbq1RPwkrtCtUTfo5bWaCNlQBqiFxSgIVYRktwiCZDdXPVii5erw==
   dependencies:
     "@reach/alert" "^0.11.2"
     "@reach/auto-id" "^0.11.2"
@@ -11581,6 +11618,13 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   integrity sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
   dependencies:
     minimalistic-assert "^1.0.0"
+
+web-encoding@^1.0.2:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/web-encoding/-/web-encoding-1.1.0.tgz#b8ed50f0e23ba239542ba11ebe885b75a0b95bea"
+  integrity sha512-KzYonGdJnZB3qvhK8hKca5qXk/wp+hgwGNTY1TnqtF2CzDzpN8szOC3ejhX9+wbhCq3vQs/TjM8BykS1kor0lQ==
+  optionalDependencies:
+    "@zxing/text-encoding" "0.9.0"
 
 web-vitals@^1.0.1:
   version "1.1.0"
