@@ -1,0 +1,30 @@
+:root {
+    /*
+    --gr0: #faf4da !important;
+    --gr1: #c8bfae !important;
+    --gr2: #a0948b !important;
+    --gr3: #7e706e !important;
+    --gr4: #615155 !important;
+    --gr5: #44313b !important;
+    --gr6: #220d1e !important;
+    --ac4: #68a699 !important;
+    --ac3: #29857e !important;
+    --ac2: #276060 !important;
+    */
+
+    --gr6: #000000 !important;
+    --gr5: #242424 !important;
+    --gr4: #454545 !important;
+    --gr3: #616161 !important;
+    --gr2: #797979 !important;
+    --gr1: #919191 !important;
+    --gr0: #adadad !important;
+    --ac4: #6e3929 !important;
+    --ac3: #a0533c !important;
+    --ac2: #a46f5f !important;
+
+    --t1: 'Gill Sans', sans-serif;
+    --sh: 1px 1px 0 1px rgba(0, 0, 0, 0.04);
+    --sh2: 2px 2px 0 0 var(--gr5);
+    --sh3: 2px 2px 0 0 var(--gr4);
+}
