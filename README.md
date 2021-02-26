@@ -20,16 +20,14 @@ Path:
 ```
 
 TODO:
-* Redraw main screen every 1 minute
-* Click description to edit
+* CSS transitions for the progress bar colors and gradients
 * Click absolute time to edit (currently you can only click the relative time)
 * Button to show/hide completed tasks
 * Hide tasks from yesterday and older
 * Buttons to view previous days' tasks
 * Custom color theme for Earthbar
 * Hide Earthbar behind a hamburger button
-* CSS transitions for the progress bar colors
-* Make bars taller so they are more annoying
+* Make red bars taller so they are more annoying
 * Pulse the color of red bars once a minute
 
 ---
