@@ -20,6 +20,7 @@ Path:
 ```
 
 TODO:
+* Redraw main screen every 1 minute
 * Click description to edit
 * Click absolute time to edit (currently you can only click the relative time)
 * Button to show/hide completed tasks
