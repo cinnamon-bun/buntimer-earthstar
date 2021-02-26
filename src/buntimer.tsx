@@ -256,7 +256,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     }
 
     let onClickRelTime = () => {
-        let newTime = prompt('minutes');
+        let newTime = prompt('Minutes from now');
         if (newTime === null) { return; }
         if (newTime.endsWith('m')) {
             newTime = newTime.slice(0, newTime.length-1);
@@ -270,23 +270,35 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         saveTimer(newTimer);
     }
 
+    let onClickName = () => {
+        let newName = prompt('Description');
+        if (newName === null || newName.trim() === '') { return; }
+        newName = newName.trim();
+        saveTimer({
+            ...timer,
+            name: newName,
+        });
+    }
+
     return (
         <Box style={{ background: background }}>
             <Cluster wrap={false}>
                 <button
                     type="button"
-                    className={timer.isDone ? "buttonHollowStrong" : "buttonHollowFaint"}
+                    className={timer.isDone ? 'buttonHollowStrong' : 'buttonHollowFaint'}
                     onClick={onClickDone}
                 >
                     done
                 </button>
-                <div style={{ width: '6ch', textAlign: 'right' }}
-                    onClick={onClickRelTime}
-                    >
+                <div style={{ width: '6ch', textAlign: 'right' }} onClick={onClickRelTime}>
                     <b>{relMinutesStr}</b>
                 </div>
-                <div style={{ width: '7ch', textAlign: 'right' }}>{absTime}</div>
-                <div style={{ marginLeft: '2ch' }}>{timer.name}</div>
+                <div style={{ width: '7ch', textAlign: 'right', opacity: 0.6 }}>
+                    <i>{absTime}</i>
+                </div>
+                <div style={{ marginLeft: '2ch', minWidth: '5ch' }} onClick={onClickName}>
+                    {timer.name}
+                </div>
                 <ClusterStretch />
                 <button
                     type="button"
