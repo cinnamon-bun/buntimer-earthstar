@@ -85,6 +85,16 @@ let useForceRender = () => {
     return () => setN(n+1);
 }
 
+let useRerenderEvery = (ms: number) => {
+    let forceRender = useForceRender();
+    React.useEffect(() => {
+        let timeout = setTimeout(() => {
+            forceRender();
+        }, ms);
+        return () => clearTimeout(timeout);
+    });
+}
+
 export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     let query: Query = {
         pathStartsWith: '/buntimer-v1/timers/common/',
@@ -97,6 +107,7 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
 
     // get earthstar stuff from hooks
     //let forceRender = useForceRender();
+    useRerenderEvery(25 * SEC);
     let [currentWorkspace] = useCurrentWorkspace();
     let [keypair] = useCurrentAuthor();
     let storage = useStorage();
@@ -229,7 +240,6 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     if (relMinutes <= 15) { color = 'var(--cSoon)'; }
     if (relMinutes < 0) { color = 'var(--cLate)'; }
     if (timer.isDone) { color = 'var(--cDone)'; }
-    console.log(relMinutesStr, color);
 
     let background = color;
     if (relMinutes > 0 && !timer.isDone) {
@@ -280,7 +290,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
                 <ClusterStretch />
                 <button
                     type="button"
-                    className="buttonSolidFaint"
+                    className="buttonHollowFaint"
                     onClick={() => deleteTimer(timer.id)}
                 >
                     <b>X</b>
