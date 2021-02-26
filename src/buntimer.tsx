@@ -49,7 +49,7 @@ class TimerApi {
     static makeNew(id?: string): Timer {
         return {
         id: id || ('' + Math.floor(Math.random()*999999999999)),
-        endTime: Date.now() + 30 * MIN,
+        endTime: Date.now() + 90 * MIN,
         name: 'new timer',
         isDone: false,
         };
@@ -155,42 +155,55 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     }
 
     /*
-    // TODO: load these from the workspace documents
-    let demoTimers: Timer[] = [
+    // demo timers for testing
+    timers = [
         {
             id: 'a',
             endTime: Date.now() - 12 * MIN,
             name: 'laundry',
+            isDone: true,
         },
         {
             id: 'a2',
             endTime: Date.now() - 20 * SEC,
             name: 'laundry',
+            isDone: false,
         },
         {
             id: 'b2',
             endTime: Date.now() + 20 * SEC,
             name: 'eat',
+            isDone: false,
         },
         {
             id: 'b',
             endTime: Date.now() + 3 * MIN,
             name: 'eat',
+            isDone: false,
+        },
+        {
+            id: 'b',
+            endTime: Date.now() + 14.9 * MIN,
+            name: 'eat',
+            isDone: false,
         },
         {
             id: 'c',
             endTime: Date.now() + 45 * MIN,
             name: 'go for a walk',
+            isDone: false,
         },
         {
             id: 'c2',
             endTime: Date.now() + 60 * MIN,
             name: 'go for a walk',
+            isDone: false,
         },
         {
             id: 'c3',
             endTime: Date.now() + 90 * MIN,
             name: 'go for a walk',
+            isDone: false,
         },
     ];
     */
@@ -236,10 +249,24 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     let amStr = am ? 'am' : 'pm'
     let absTime = `${hourStr}:${minuteStr}${amStr}`;
 
+    // default: green
     let color: string = 'var(--cRelax)';
-    if (relMinutes <= 15) { color = 'var(--cSoon)'; }
-    if (relMinutes < 0) { color = 'var(--cLate)'; }
-    if (timer.isDone) { color = 'var(--cDone)'; }
+    let textOpacity: number = 0.42;
+    if (relMinutes <= 15) {
+        // yellow
+        color = 'var(--cSoon)';
+        textOpacity = 1.0;
+    }
+    if (relMinutes < 0) {
+        // red
+        color = 'var(--cLate)';
+        textOpacity = 1.0;
+    }
+    if (timer.isDone) {
+        // gray
+        color = 'var(--cDone)';
+        textOpacity = 0.3;
+    }
 
     let background = color;
     if (relMinutes > 0 && !timer.isDone) {
@@ -280,30 +307,49 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         });
     }
 
+    let relTimeOpacity = textOpacity * 0.8;
+    let absTimeOpacity = textOpacity * 0.7;
+    let nameOpacity = textOpacity;
+    let buttonOpacity = 0.8;
+
     return (
         <Box style={{ background: background }}>
-            <Cluster wrap={false}>
-                <button
-                    type="button"
-                    className={timer.isDone ? 'buttonHollowStrong' : 'buttonHollowFaint'}
-                    onClick={onClickDone}
+            <Cluster wrap={false} valign="baseline">
+                <div
+                    style={{
+                        width: '6ch',
+                        textAlign: 'right',
+                        opacity: relTimeOpacity,
+                        fontWeight: 'bold',
+                        fontSize: '140%',
+                    }}
+                    onClick={onClickRelTime}
                 >
-                    done
-                </button>
-                <div style={{ width: '6ch', textAlign: 'right' }} onClick={onClickRelTime}>
-                    <b>{relMinutesStr}</b>
+                    {relMinutesStr}
                 </div>
-                <div style={{ width: '7ch', textAlign: 'right', opacity: 0.6 }}>
+                <div style={{ width: '7ch', textAlign: 'right', opacity: absTimeOpacity }}>
                     <i>{absTime}</i>
                 </div>
-                <div style={{ marginLeft: '2ch', minWidth: '5ch' }} onClick={onClickName}>
+                <div
+                    style={{ marginLeft: '2ch', minWidth: '5ch', opacity: nameOpacity }}
+                    onClick={onClickName}
+                >
                     {timer.name}
                 </div>
                 <ClusterStretch />
                 <button
                     type="button"
                     className="buttonHollowFaint"
+                    onClick={onClickDone}
+                    style={{ opacity: buttonOpacity }}
+                >
+                    done
+                </button>
+                <button
+                    type="button"
+                    className="buttonHollowFaint"
                     onClick={() => deleteTimer(timer.id)}
+                    style={{ opacity: buttonOpacity }}
                 >
                     <b>X</b>
                 </button>
