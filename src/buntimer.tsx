@@ -113,11 +113,16 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     let storage = useStorage();
     let docs = useDocuments(query);
 
+    let [showDone, setShowDone] = React.useState(false);
+
     // parse document content from JSON to Timer objects
     let timers: Timer[] = [];
     for (let doc of docs) {
         try {
-            timers.push(JSON.parse(doc.content));
+            let timer: Timer = JSON.parse(doc.content);
+            if (showDone || !timer.isDone) {
+                timers.push(timer);
+            }
         } catch (err) {
             // skip empty docs and non-json content
         }
@@ -217,13 +222,18 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
                 deleteTimer={deleteTimer}
                 />
             ))}
-            <VBox size="2">
-                <Cluster align='center'>
+            <Box size="2">
+                <Cluster align='right' size="2">
                     <button type="button" className="buttonSolidFaint" onClick={addTimer}>
-                        Add
+                        Add timer
+                    </button>
+                    <button type="button" className="buttonHollowFaint"
+                        onClick={() => setShowDone(!showDone)}
+                    >
+                        { showDone ? 'Hide done' : 'Show done' }
                     </button>
                 </Cluster>
-            </VBox>
+            </Box>
         </Stack>
         </VBox>
     );
@@ -251,7 +261,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
 
     // default: green
     let color: string = 'var(--cRelax)';
-    let textOpacity: number = 0.42;
+    let textOpacity: number = 0.45;
     if (relMinutes <= 15) {
         // yellow
         color = 'var(--cSoon)';
@@ -313,7 +323,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     let buttonOpacity = 0.8;
 
     return (
-        <Box style={{ background: background }}>
+        <Box style={{ background: background }} size="2">
             <Cluster wrap={false} valign="baseline">
                 <div
                     style={{
