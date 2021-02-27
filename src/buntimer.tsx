@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { AuthorKeypair, isErr, Document, Query, IStorageAsync, WriteResult } from 'earthstar';
 import {
-    Earthbar,
-    EarthstarPeer,
-    LocalStorageSettingsWriter,
+    AuthorKeypair,
+    IStorageAsync,
+    Query,
+    WriteResult,
+    isErr,
+} from 'earthstar';
+import {
     useDocuments,
     useCurrentWorkspace,
-    useLocalStorageEarthstarSettings,
     useCurrentAuthor,
     useStorage,
 } from 'react-earthstar';
@@ -20,6 +22,9 @@ import {
     ClusterStretch,
 } from './lib/layouts';
 
+//================================================================================
+// CONSTANTS AND HELPERS
+
 const SEC = 1000;
 const MIN = 60 * SEC;
 const HOUR = 60 * MIN;
@@ -29,12 +34,14 @@ let remap = (x: number, oldLo: number, oldHi: number, newLo: number, newHi: numb
     let pct = (x - oldLo) / (oldHi - oldLo);
     return newLo + pct * (newHi - newLo);
 }
-let clamp = (x: number, lo: number, hi: number) => {
-    return Math.max(lo, Math.min(hi, x));
-}
-let remapAndClamp = (x: number, oldLo: number, oldHi: number, newLo: number, newHi: number): number => {
-    return clamp(remap(x, oldLo, oldHi, newLo, newHi), newLo, newHi);
-}
+let clamp = (x: number, lo: number, hi: number) =>
+    Math.max(lo, Math.min(hi, x));
+
+let remapAndClamp = (x: number, oldLo: number, oldHi: number, newLo: number, newHi: number): number =>
+    clamp(remap(x, oldLo, oldHi, newLo, newHi), newLo, newHi);
+
+//================================================================================
+// TYPES
 
 interface Timer {
     id: string;
@@ -48,10 +55,10 @@ interface Timer {
 class TimerApi {
     static makeNew(id?: string): Timer {
         return {
-        id: id || ('' + Math.floor(Math.random()*999999999999)),
-        endTime: Date.now() + 90 * MIN,
-        name: 'new timer',
-        isDone: false,
+            id: id || '' + Math.floor(Math.random() * 999999999999),
+            endTime: Date.now() + 90 * MIN,
+            name: 'new timer',
+            isDone: false,
         };
     }
     static async save(keypair: AuthorKeypair, storage: IStorageAsync, timer: Timer): Promise<void> {
@@ -82,8 +89,8 @@ class TimerApi {
 
 let useForceRender = () => {
     let [n, setN] = React.useState(0);
-    return () => setN(n+1);
-}
+    return () => setN(n + 1);
+};
 
 let useRerenderEvery = (ms: number) => {
     let forceRender = useForceRender();
@@ -93,7 +100,7 @@ let useRerenderEvery = (ms: number) => {
         }, ms);
         return () => clearTimeout(timeout);
     });
-}
+};
 
 export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     let query: Query = {
@@ -103,7 +110,7 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
         // queries, which are used internally by useDocuments() to know
         // when to refresh...
         //contentLengthGt: 0,
-    }
+    };
 
     // get earthstar stuff from hooks
     //let forceRender = useForceRender();
@@ -215,26 +222,32 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
 
     return (
         <VBox size="3">
-        <Stack size="1">
-            {timers.map((timer) => (
-                <TimerView key={timer.id} timer={timer}
-                saveTimer={saveTimer}
-                deleteTimer={deleteTimer}
-                />
-            ))}
-            <Box size="2">
-                <Cluster align='right' size="2">
-                    <button type="button" className="buttonSolidFaint" onClick={addTimer}>
-                        Add timer
-                    </button>
-                    <button type="button" className="buttonHollowFaint"
-                        onClick={() => setShowDone(!showDone)}
-                    >
-                        { showDone ? 'Hide done' : 'Show done' }
-                    </button>
-                </Cluster>
-            </Box>
-        </Stack>
+            <Stack size="1">
+                {timers.map((timer) => (
+                    <TimerView
+                        key={timer.id}
+                        timer={timer}
+                        saveTimer={saveTimer}
+                        deleteTimer={deleteTimer}
+                    />
+                ))}
+                <Box size="2">
+                    <Cluster align="right" size="2">
+                        <button type="button"
+                            className="buttonSolidFaint"
+                            onClick={addTimer}
+                        >
+                            Add timer
+                        </button>
+                        <button type="button"
+                            className="buttonHollowFaint"
+                            onClick={() => setShowDone(!showDone)}
+                        >
+                            {showDone ? 'Hide done' : 'Show done'}
+                        </button>
+                    </Cluster>
+                </Box>
+            </Stack>
         </VBox>
     );
 };
@@ -246,6 +259,8 @@ interface TimerViewProps {
 }
 let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps) => {
     let { timer, saveTimer, deleteTimer } = props;
+
+    // make human readable time strings
     let now = Date.now();
     let relMinutes = (timer.endTime - now) / MIN;
     let relMinutesStr = '' + Math.round(relMinutes) + 'm';
@@ -290,9 +305,10 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
             isDone: !timer.isDone,
             endTime: relMinutes < 0 ? timer.endTime : Date.now(),
         });
-    }
+    };
 
     let onClickRelTime = () => {
+        // ask user for new relative time
         let newTime = prompt('Minutes from now');
         if (newTime === null) { return; }
         if (newTime.endsWith('m')) {
@@ -308,6 +324,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     }
 
     let onClickName = () => {
+        // ask user for new name
         let newName = prompt('Description');
         if (newName === null || newName.trim() === '') { return; }
         newName = newName.trim();

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { isErr, Document } from 'earthstar';
 import {
     Earthbar,
     EarthstarPeer,
@@ -14,6 +13,7 @@ import {
 
 import 'react-earthstar/styles/layout.css';
 import 'react-earthstar/styles/junior.css';
+import './css/earthbar-override.css';
 
 function App() {
     const initValues = useLocalStorageEarthstarSettings('buntimer');
