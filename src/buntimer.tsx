@@ -342,7 +342,8 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     return (
         <Box style={{ background: background }} size="2">
             <Cluster wrap={false} valign="baseline">
-                <div
+                <button
+                    className="notButton"
                     style={{
                         width: '6ch',
                         textAlign: 'right',
@@ -353,16 +354,20 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
                     onClick={onClickRelTime}
                 >
                     {relMinutesStr}
-                </div>
-                <div style={{ width: '7ch', textAlign: 'right', opacity: absTimeOpacity }}>
+                </button>
+                <button
+                    style={{ width: '7ch', textAlign: 'right', opacity: absTimeOpacity }}
+                    className="notButton"
+                    >
                     <i>{absTime}</i>
-                </div>
-                <div
+                </button>
+                <button
                     style={{ marginLeft: '2ch', minWidth: '5ch', opacity: nameOpacity }}
                     onClick={onClickName}
+                    className="notButton"
                 >
                     {timer.name}
-                </div>
+                </button>
                 <ClusterStretch />
                 <button
                     type="button"

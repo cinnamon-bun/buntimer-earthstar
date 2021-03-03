@@ -255,6 +255,15 @@ hr {
     cursor: pointer;
 }
 
+.notButton {
+    border: none;
+    color: inherit;
+    background: none;
+    font: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
 summary {
     margin-top: var(--s1);
     margin-bottom: var(--s2);
