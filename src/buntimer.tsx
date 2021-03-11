@@ -22,6 +22,8 @@ import {
     ClusterStretch,
 } from './lib/layouts';
 
+import { config } from './config';
+
 //================================================================================
 // CONSTANTS AND HELPERS
 
@@ -122,25 +124,84 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
 
     let [showDone, setShowDone] = React.useState(false);
 
-    // parse document content from JSON to Timer objects
-    let timers: Timer[] = [];
-    for (let doc of docs) {
-        try {
-            let timer: Timer = JSON.parse(doc.content);
-            if (showDone || !timer.isDone) {
-                timers.push(timer);
-            }
-        } catch (err) {
-            // skip empty docs and non-json content
-        }
-    }
-    // sort oldest first
-    timers.sort((a: Timer, b: Timer) => a.endTime - b.endTime);
-
     if (currentWorkspace === null || keypair === null) {
         return <p>
             To use this app, join/create a workspace and also sign in as a user.
         </p>;
+    }
+
+    let timers: Timer[] = [];
+    if (!config.FAKE_DATA) {
+        // real data
+
+        // parse document content from JSON to Timer objects
+        for (let doc of docs) {
+            try {
+                let timer: Timer = JSON.parse(doc.content);
+                if (showDone || !timer.isDone) {
+                    timers.push(timer);
+                }
+            } catch (err) {
+                // skip empty docs and non-json content
+            }
+        }
+        // sort oldest first
+        timers.sort((a: Timer, b: Timer) => a.endTime - b.endTime);
+
+    } else {
+
+        // demo timers for testing
+        timers = [
+            {
+                id: 'a1',
+                endTime: Date.now() - 12 * MIN,
+                name: 'laundry -12 min',
+                isDone: true,
+            },
+            {
+                id: 'a2',
+                endTime: Date.now() - 20 * SEC,
+                name: 'laundry -20 sec',
+                isDone: false,
+            },
+            {
+                id: 'b1',
+                endTime: Date.now() + 20 * SEC,
+                name: 'eat 20 sec',
+                isDone: false,
+            },
+            {
+                id: 'b2',
+                endTime: Date.now() + 3 * MIN,
+                name: 'eat 3 min',
+                isDone: false,
+            },
+            {
+                id: 'b3',
+                endTime: Date.now() + 14.9 * MIN,
+                name: 'eat 14.9 min',
+                isDone: false,
+            },
+            {
+                id: 'c1',
+                endTime: Date.now() + 45 * MIN,
+                name: 'go for a walk 45',
+                isDone: false,
+            },
+            {
+                id: 'c2',
+                endTime: Date.now() + 60 * MIN,
+                name: 'go for a walk 60',
+                isDone: false,
+            },
+            {
+                id: 'c3',
+                endTime: Date.now() + 90 * MIN,
+                name: 'go for a walk 90',
+                isDone: false,
+            },
+        ];
+        // end of fake data
     }
 
     // prepare callbacks for the individual rows to use
@@ -165,60 +226,6 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
             //forceRender();
         }
     }
-
-    /*
-    // demo timers for testing
-    timers = [
-        {
-            id: 'a',
-            endTime: Date.now() - 12 * MIN,
-            name: 'laundry',
-            isDone: true,
-        },
-        {
-            id: 'a2',
-            endTime: Date.now() - 20 * SEC,
-            name: 'laundry',
-            isDone: false,
-        },
-        {
-            id: 'b2',
-            endTime: Date.now() + 20 * SEC,
-            name: 'eat',
-            isDone: false,
-        },
-        {
-            id: 'b',
-            endTime: Date.now() + 3 * MIN,
-            name: 'eat',
-            isDone: false,
-        },
-        {
-            id: 'b',
-            endTime: Date.now() + 14.9 * MIN,
-            name: 'eat',
-            isDone: false,
-        },
-        {
-            id: 'c',
-            endTime: Date.now() + 45 * MIN,
-            name: 'go for a walk',
-            isDone: false,
-        },
-        {
-            id: 'c2',
-            endTime: Date.now() + 60 * MIN,
-            name: 'go for a walk',
-            isDone: false,
-        },
-        {
-            id: 'c3',
-            endTime: Date.now() + 90 * MIN,
-            name: 'go for a walk',
-            isDone: false,
-        },
-    ];
-    */
 
     return (
         <VBox size="3">
