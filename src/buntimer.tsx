@@ -329,12 +329,9 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         [colorL, colorR] = [colorR, colorL];
     }
     let grad_degrees = 90 + 15 * (config.BARS_LEFT_TO_RIGHT ? 1 : -1);
-    //let background = color;
-    //if (relMinutes > 0 && !timer.isDone) {
-        let progress = remapAndClamp(relMinutes, 0, 60, -0.5, 98.5);
-        if (config.BARS_LEFT_TO_RIGHT) { progress = 100 - progress; }
-        let background = `linear-gradient(${grad_degrees}deg, ${colorL} 0% ${progress}%, ${colorR} ${progress}% 100%)`
-    //}
+    let progress = remapAndClamp(relMinutes, 0, 60, -0.5, 98.5);
+    if (config.BARS_LEFT_TO_RIGHT) { progress = 100 - progress; }
+    let background = `linear-gradient(${grad_degrees}deg, ${colorL} 0% ${progress}%, ${colorR} ${progress}% 100%)`
 
     let onClickDone = () => {
         saveTimer({
@@ -378,51 +375,53 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
 
     return (
         <Box style={{ background: background }} size="2">
-            <Cluster wrap={false} valign="baseline">
-                <button
-                    className="notButton"
-                    style={{
-                        width: '6ch',
-                        textAlign: 'right',
-                        opacity: relTimeOpacity,
-                        fontWeight: 'bold',
-                        fontSize: '140%',
-                    }}
-                    onClick={onClickRelTime}
-                >
-                    {relMinutesStr}
-                </button>
-                <button
-                    style={{ width: '7ch', textAlign: 'right', opacity: absTimeOpacity }}
-                    className="notButton"
+            <VBox size={(relMinutes < 0 && !timer.isDone) ? "3" : "0"}>
+                <Cluster wrap={false} valign="baseline">
+                    <button
+                        className="notButton"
+                        style={{
+                            width: '6ch',
+                            textAlign: 'right',
+                            opacity: relTimeOpacity,
+                            fontWeight: 'bold',
+                            fontSize: '140%',
+                        }}
+                        onClick={onClickRelTime}
                     >
-                    <i>{absTime}</i>
-                </button>
-                <button
-                    style={{ marginLeft: '1.3ch', minWidth: '5ch', opacity: nameOpacity }}
-                    onClick={onClickName}
-                    className="notButton"
-                >
-                    {timer.name}
-                </button>
-                <ClusterStretch />
-                <button
-                    type="button"
-                    className="buttonHollowFaint"
-                    onClick={onClickDone}
-                    style={{ opacity: buttonOpacity }}
-                >
-                    done
-                </button>
-                <button
-                    type="button"
-                    className="buttonHollowFaint"
-                    onClick={() => deleteTimer(timer.id)}
-                    style={{ opacity: buttonOpacity }}
-                >
-                    <b>X</b>
-                </button>
-            </Cluster>
+                        {relMinutesStr}
+                    </button>
+                    <button
+                        style={{ width: '7ch', textAlign: 'right', opacity: absTimeOpacity }}
+                        className="notButton"
+                        >
+                        <i>{absTime}</i>
+                    </button>
+                    <button
+                        style={{ marginLeft: '1.3ch', minWidth: '5ch', opacity: nameOpacity }}
+                        onClick={onClickName}
+                        className="notButton"
+                    >
+                        {timer.name}
+                    </button>
+                    <ClusterStretch />
+                    <button
+                        type="button"
+                        className="buttonHollowFaint"
+                        onClick={onClickDone}
+                        style={{ opacity: buttonOpacity }}
+                    >
+                        done
+                    </button>
+                    <button
+                        type="button"
+                        className="buttonHollowFaint"
+                        onClick={() => deleteTimer(timer.id)}
+                        style={{ opacity: buttonOpacity }}
+                    >
+                        <b>X</b>
+                    </button>
+                </Cluster>
+            </VBox>
         </Box>
     );
 };
