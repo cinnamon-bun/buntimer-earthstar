@@ -153,10 +153,22 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
         // demo timers for testing
         timers = [
             {
+                id: 'a0',
+                endTime: Date.now() - 1234 * MIN,
+                name: 'laundry -1234 min',
+                isDone: true,
+            },
+            {
                 id: 'a1',
                 endTime: Date.now() - 12 * MIN,
                 name: 'laundry -12 min',
                 isDone: true,
+            },
+            {
+                id: 'a2',
+                endTime: Date.now() - 10 * MIN,
+                name: 'laundry -10 min',
+                isDone: false,
             },
             {
                 id: 'a2',
@@ -183,6 +195,12 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
                 isDone: false,
             },
             {
+                id: 'c0',
+                endTime: Date.now() + 15.1 * MIN,
+                name: 'go for a walk 15.1 min',
+                isDone: false,
+            },
+            {
                 id: 'c1',
                 endTime: Date.now() + 45 * MIN,
                 name: 'go for a walk 45',
@@ -198,6 +216,12 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
                 id: 'c3',
                 endTime: Date.now() + 90 * MIN,
                 name: 'go for a walk 90',
+                isDone: false,
+            },
+            {
+                id: 'c4',
+                endTime: Date.now() + 333 * MIN,
+                name: 'go for a walk 333',
                 isDone: false,
             },
         ];
@@ -282,29 +306,35 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     let absTime = `${hourStr}:${minuteStr}${amStr}`;
 
     // default: green
-    let color: string = 'var(--cRelax)';
+    let colorL: string = 'transparent';
+    let colorR: string = 'var(--cRelax)';
     let textOpacity: number = 0.45;
     if (relMinutes <= 15) {
         // yellow
-        color = 'var(--cSoon)';
+        colorR= 'var(--cSoon)';
         textOpacity = 1.0;
     }
     if (relMinutes < 0) {
         // red
-        color = 'var(--cLate)';
+        colorR = 'var(--cLate)';
         textOpacity = 1.0;
     }
     if (timer.isDone) {
         // gray
-        color = 'var(--cDone)';
+        colorR = 'var(--cDone)';
         textOpacity = 0.3;
     }
 
-    let background = color;
-    if (relMinutes > 0 && !timer.isDone) {
-        let progress = remapAndClamp(relMinutes, 0, 60, 0.5, 101);
-        background = `linear-gradient(75deg, ${color} 0% ${progress}%, transparent ${progress}% 100%)`
+    if (config.BARS_LEFT_TO_RIGHT) {
+        [colorL, colorR] = [colorR, colorL];
     }
+    let grad_degrees = 90 + 15 * (config.BARS_LEFT_TO_RIGHT ? 1 : -1);
+    //let background = color;
+    //if (relMinutes > 0 && !timer.isDone) {
+        let progress = remapAndClamp(relMinutes, 0, 60, -0.5, 98.5);
+        if (config.BARS_LEFT_TO_RIGHT) { progress = 100 - progress; }
+        let background = `linear-gradient(${grad_degrees}deg, ${colorL} 0% ${progress}%, ${colorR} ${progress}% 100%)`
+    //}
 
     let onClickDone = () => {
         saveTimer({
@@ -341,8 +371,8 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         });
     }
 
-    let relTimeOpacity = textOpacity * 0.8;
-    let absTimeOpacity = textOpacity * 0.7;
+    let relTimeOpacity = textOpacity * 0.85;
+    let absTimeOpacity = textOpacity * 0.85;
     let nameOpacity = textOpacity;
     let buttonOpacity = 0.8;
 
@@ -369,7 +399,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
                     <i>{absTime}</i>
                 </button>
                 <button
-                    style={{ marginLeft: '2ch', minWidth: '5ch', opacity: nameOpacity }}
+                    style={{ marginLeft: '1.3ch', minWidth: '5ch', opacity: nameOpacity }}
                     onClick={onClickName}
                     className="notButton"
                 >
