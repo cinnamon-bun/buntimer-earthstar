@@ -36,8 +36,12 @@ let remap = (x: number, oldLo: number, oldHi: number, newLo: number, newHi: numb
     let pct = (x - oldLo) / (oldHi - oldLo);
     return newLo + pct * (newHi - newLo);
 }
-let clamp = (x: number, lo: number, hi: number) =>
-    Math.max(lo, Math.min(hi, x));
+let clamp = (x: number, lo: number, hi: number) => {
+    // this works even if lo and hi are in the wrong order
+    let lo2 = Math.min(lo, hi);
+    let hi2 = Math.max(lo, hi);
+    return Math.max(lo2, Math.min(hi2, x));
+}
 
 let remapAndClamp = (x: number, oldLo: number, oldHi: number, newLo: number, newHi: number): number =>
     clamp(remap(x, oldLo, oldHi, newLo, newHi), newLo, newHi);
@@ -116,13 +120,14 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     };
 
     // get earthstar stuff from hooks
-    useRerenderEvery(25 * SEC);
     let [currentWorkspace] = useCurrentWorkspace();
     let [keypair] = useCurrentAuthor();
     let storage = useStorage();
     let docs = useDocuments(query);
 
     let [showDone, setShowDone] = React.useState(false);
+
+    useRerenderEvery(10 * SEC);
 
     if (currentWorkspace === null || keypair === null) {
         return <p>
@@ -154,7 +159,6 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
         timers.sort((a: Timer, b: Timer) => a.endTime - b.endTime);
 
     } else {
-
         // demo timers for testing
         timers = [
             {
@@ -176,7 +180,7 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
                 isDone: false,
             },
             {
-                id: 'a2',
+                id: 'a3',
                 endTime: Date.now() - 20 * SEC,
                 name: 'laundry -20 sec',
                 isDone: false,
@@ -311,7 +315,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     let absTime = `${hourStr}:${minuteStr}${amStr}`;
 
     // default: green
-    let colorL: string = 'transparent';
+    let colorL: string = 'var(--cPage)';
     let colorR: string = 'var(--cRelax)';
     let textOpacity: number = 0.45;
     if (relMinutes <= 15) {
@@ -334,9 +338,27 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         [colorL, colorR] = [colorR, colorL];
     }
     let grad_degrees = 90 + 15 * (config.BARS_LEFT_TO_RIGHT ? 1 : -1);
-    let progress = remapAndClamp(relMinutes, 0, 60, -0.5, 98.5);
+    let progress = remapAndClamp(relMinutes, 0, 60, 0, 97);
     if (config.BARS_LEFT_TO_RIGHT) { progress = 100 - progress; }
-    let background = `linear-gradient(${grad_degrees}deg, ${colorL} 0% ${progress}%, ${colorR} ${progress}% 100%)`
+    // simple changing gradient
+    //let background = `linear-gradient(${grad_degrees}deg, ${colorL} 0% ${progress}%, ${colorR} ${progress}% 100%)`
+
+    // gradient that animates by sliding with backgroundPosition.
+    // The colorful part is actually the backgroundColor,
+    // and the empty part is the gradient which is partially transparent.
+    let background = `linear-gradient(${grad_degrees}deg,
+        ${colorL} 0% 49%,
+        transparent 51% 100%)`;
+    let bgStyle: React.CSSProperties = {
+        backgroundColor: colorR,
+        backgroundImage: background,
+        backgroundSize: '206% 100%',
+        backgroundPosition: `${100-progress}% 50%`,  // 0 shows the left side, 100 shows the right side
+        transitionProperty: 'background-position, background-color',
+        transitionDuration: '0.4s',
+        transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)',  // hard start, gentle ease out
+    };
+
 
     let onClickDone = () => {
         saveTimer({
@@ -379,7 +401,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     let buttonOpacity = 0.8;
 
     return (
-        <Box style={{ background: background }} size="2">
+        <Box style={bgStyle} size="2">
             <VBox size={(relMinutes < 0 && !timer.isDone) ? "3" : "0"}>
                 <Cluster wrap={false} valign="baseline">
                     <button
