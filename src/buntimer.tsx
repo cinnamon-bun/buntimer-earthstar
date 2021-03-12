@@ -95,6 +95,7 @@ let useForceRender = () => {
 };
 
 let useRerenderEvery = (ms: number) => {
+    // re-render a component every X milliseconds
     let forceRender = useForceRender();
     React.useEffect(() => {
         let timeout = setTimeout(() => {
@@ -115,7 +116,6 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     };
 
     // get earthstar stuff from hooks
-    //let forceRender = useForceRender();
     useRerenderEvery(25 * SEC);
     let [currentWorkspace] = useCurrentWorkspace();
     let [keypair] = useCurrentAuthor();
@@ -126,7 +126,12 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
 
     if (currentWorkspace === null || keypair === null) {
         return <p>
-            To use this app, join/create a workspace and also sign in as a user.
+            To use this app,
+            <ol>
+                <li>Join or create a workspace</li>
+                <li>Create a user, or sign in as a user, from the upper right.</li>
+            </ol>
+            Then you can add timers.
         </p>;
     }
 
