@@ -261,7 +261,7 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     }
 
     return (
-        <VBox size="3">
+        <VBox size="3" style={{ userSelect: 'none' }}>
             <Stack size="1">
                 {timers.map((timer) => (
                     <TimerView
