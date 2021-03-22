@@ -311,7 +311,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     if (hour === 0) { hour = 12; }
     let hourStr = '' + hour;
     let minuteStr = ('' + dt.getMinutes()).padStart(2, '0');
-    let amStr = am ? 'am' : 'pm'
+    let amStr = am ? 'am' : 'pm';
     let absTime = `${hourStr}:${minuteStr}${amStr}`;
 
     // default: green
@@ -382,7 +382,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
             endTime: Date.now() + min * MIN,
         }
         saveTimer(newTimer);
-    }
+    };
 
     let onClickName = () => {
         // ask user for new name
@@ -393,7 +393,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
             ...timer,
             name: newName,
         });
-    }
+    };
 
     let relTimeOpacity = textOpacity * 0.85;
     let absTimeOpacity = textOpacity * 0.85;
