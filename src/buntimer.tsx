@@ -364,7 +364,9 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         saveTimer({
             ...timer,
             isDone: !timer.isDone,
-            endTime: relMinutes < 0 ? timer.endTime : Date.now(),
+            // if it's a very old task, don't change the endTime.
+            // otherwise change the endTime to now() since we just completed it.
+            endTime: relMinutes < -200 ? timer.endTime : Date.now(),
         });
     };
 
