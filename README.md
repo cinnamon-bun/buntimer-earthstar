@@ -14,10 +14,10 @@ After that, done items are hidden (unless you want to see them).
 
 1. Create a workspace.  Name it anything you want.
 2. Sign in and create an identity.
-3. Now you can add timers and the'll sync to the pub server.
+3. Now you can add timers.
 4. Your data will be saved in your browser.  If you want your data to sync to other devices, add pub server(s) in the Workspace Settings.  You can use this one: `https://earthstar-demo-pub-v6-a.glitch.me/` or run your own (see [earthstar-pub](https://github.com/earthstar-project/earthstar-pub)]
 
-Add multiple pub servers if you want redundancy.  They have no authority; they just help keep your data online.  Ask your friends to run some too.
+Add multiple pub servers if you want redundancy.  They have no authority; they just help keep your data online.  Ask your friends to run some too, or put one on a raspberry pi under your desk.
 
 ## What's Earthstar?
 
