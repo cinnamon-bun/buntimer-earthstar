@@ -1,6 +1,6 @@
 # Buntimer (Earthstar edition)
 
-In development!
+## What it is
 
 This is a visual timer to help you remember to do things throughout the day.  Eating, laundry, appointments.
 
@@ -10,26 +10,52 @@ After that, done items will be hidden (unless you want to see them).
 
 ![](screenshot.png)
 
-Each row is stored in a single Earthstar document, as JSON.  This means any change to a row will clobber other simultaneous changes (e.g. you can't have two people changing different parts of a row at the same time).  The use case is mainly personal so this is fine.
+## How to use it
+
+1. Create a workspace.  Name it anything you want.
+2. Sign in and create an identity.
+3. Now you can add timers and the'll sync to the pub server.
+4. Your data will be saved in your browser.  If you want your data to sync to other devices, add pub server(s) in the Workspace Settings.  You can use this one: `https://earthstar-demo-pub-v6-a.glitch.me/` or run your own (see [earthstar-pub](https://github.com/earthstar-project/earthstar-pub)]
+
+Add multiple pub servers if you want redundancy.  They have no authority; they just help keep your data online.  Ask your friends to run some too.
+
+## What's Earthstar?
+
+[Earthstar](https://github.com/earthstar-project/earthstar) is a distributed system for collaborating on data with your friends.  Kind of like SSB or Dat, but simpler and more multi-user.
+
+There is not a big global Earthstar network.  Each workspace and pub are a mini disconnected island, sort of like a Discord or Slack or shared folder.
+
+## Inviting people; Privacy details
+
+You can invite other people to your Buntimer by sending them an invitation (from Workspace Settings).  They can collaborate with you and changes are synced in real time.
+
+Anyone who knows your workspace address, and which pub(s) you use, can see and edit your data.  You can delete your data but some metadata will remain (mostly timestamps).  There's a Data Deletion section at the end of Workspace Settings, or you can just delete your individual timers one by one.
+
+Earthstar is not an append-only system.  Deleted data actually goes away.
+
+## Earthstar tech details
+
+Each timer is stored in a single Earthstar document, as JSON, though it has several properties (name, time, isDone).  This means any change to a timer will clobber other simultaneous changes (e.g. you can't have two people changing different parts of a timer at the same time).  The use case is mainly personal so this is fine.
 
 We use ephemeral documents that last 7 days to avoid clutter building up.  Normally you will only want to see today's tasks anyway.
 
-Path:
+Document paths look like:
 ```
     /buntimer-v1/timers/common/${id}!.json
 ```
 
 TODO:
-* CSS transitions for the progress bar colors and gradients
 * Click absolute time to edit (currently you can only click the relative time)
-* Button to show/hide completed tasks
 * Hide tasks from yesterday and older
 * Buttons to view previous days' tasks
-* Custom color theme for Earthbar
 * Hide Earthbar behind a hamburger button
-* Make red bars taller so they are more annoying
 * Pulse the color of red bars once a minute
 
+---
+---
+---
+---
+---
 ---
 
 # Getting Started with Create React App
