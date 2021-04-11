@@ -24,7 +24,6 @@ Add multiple pub servers if you want redundancy.  They have no authority; they j
 [Earthstar](https://github.com/earthstar-project/earthstar) is a distributed system for collaborating on data with your friends.  Kind of like SSB or Dat, but simpler and more multi-user.
 
 There is no big global Earthstar network.  Each workspace and pub are a mini disconnected island, sort of like a Discord or Slack or shared folder.
-
 ## Inviting people; Privacy details
 
 You can invite other people to your Buntimer by sending them an invitation (from Workspace Settings).  They can collaborate with you and changes are synced in real time.
@@ -33,7 +32,13 @@ Anyone who knows your workspace address, and which pub(s) you use, can see and e
 
 You can delete your data.  There's a Data Deletion section at the end of Workspace Settings, or you can just delete your individual timers one by one  Earthstar is not an append-only system -- deleted data actually goes away.  Normal documents leave a bit of metadata behind (author, path, and timestamp, but not content).   However this app uses ephemeral documents which delete themselves completely after 7 days, leaving nothing.
 
-## Earthstar tech details
+## Tech details: this app
+
+This app is based on [create-react-app](https://github.com/facebook/create-react-app) and uses [React-earthstar](https://github.com/earthstar-project/react-earthstar) for integration between Earthstar and React, though it's not too hard to just do it manually.
+
+The interesting code is all in [`buntimer.tsx'](https://github.com/cinnamon-bun/buntimer-earthstar/blob/main/src/buntimer.tsx); the rest is CSS and layout stuff.
+
+## Tech details related to Earthstar
 
 Earthstar doesn't merge changes to a single document, it just lets the most recent change win.
 
