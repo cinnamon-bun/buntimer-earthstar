@@ -2,7 +2,7 @@
 
 ## What it is
 
-This is a visual timer to help you remember to do things throughout the day:  eating, laundry, appointments.
+This webapp is a visual timer to help you remember to do things throughout the day:  eating, laundry, appointments.
 
 Each timer has a progress bar that counts down until time runs out, then the whole row turns red and stares you in the face until you click Done.  The progress bar is 60 minutes wide.
 
