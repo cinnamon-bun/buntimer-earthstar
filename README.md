@@ -15,7 +15,7 @@ After that, done items are hidden (unless you want to see them).
 1. Create a workspace.  Name it anything you want.
 2. Sign in and create an identity.
 3. Now you can add timers.
-4. Your data will be saved in your browser.  If you want your data to sync to other devices, add pub server(s) in the Workspace Settings.  You can use this one: `https://earthstar-demo-pub-v6-a.glitch.me/` or run your own (see [earthstar-pub](https://github.com/earthstar-project/earthstar-pub)]
+4. Your data will be saved in your browser.  If you want your data to sync to other devices, add pub server(s) in the Workspace Settings.  You can use this one: `https://earthstar-demo-pub-v6-a.glitch.me/` or run your own (see [earthstar-pub](https://github.com/earthstar-project/earthstar-pub))
 
 Add multiple pub servers if you want redundancy.  They have no authority; they just help keep your data online.  Ask your friends to run some too, or put one on a raspberry pi under your desk.
 
@@ -23,19 +23,23 @@ Add multiple pub servers if you want redundancy.  They have no authority; they j
 
 [Earthstar](https://github.com/earthstar-project/earthstar) is a distributed system for collaborating on data with your friends.  Kind of like SSB or Dat, but simpler and more multi-user.
 
-There is not a big global Earthstar network.  Each workspace and pub are a mini disconnected island, sort of like a Discord or Slack or shared folder.
+There is no big global Earthstar network.  Each workspace and pub are a mini disconnected island, sort of like a Discord or Slack or shared folder.
 
 ## Inviting people; Privacy details
 
 You can invite other people to your Buntimer by sending them an invitation (from Workspace Settings).  They can collaborate with you and changes are synced in real time.
 
-Anyone who knows your workspace address, and which pub(s) you use, can see and edit your data.  You can delete your data but some metadata will remain (mostly timestamps).  There's a Data Deletion section at the end of Workspace Settings, or you can just delete your individual timers one by one.
+Anyone who knows your workspace address, and which pub(s) you use, can see and edit your data.
 
-Earthstar is not an append-only system.  Deleted data actually goes away.
+You can delete your data.  There's a Data Deletion section at the end of Workspace Settings, or you can just delete your individual timers one by one  Earthstar is not an append-only system -- deleted data actually goes away.  Normal documents leave a bit of metadata behind (author, path, and timestamp, but not content).   However this app uses ephemeral documents which delete themselves completely after 7 days, leaving nothing.
 
 ## Earthstar tech details
 
-Each timer is stored in a single Earthstar document, as JSON, though it has several properties (name, time, isDone).  This means any change to a timer will clobber other simultaneous changes (e.g. you can't have two people changing different parts of a timer at the same time).  The use case is mainly personal so this is fine.
+Earthstar doesn't merge changes to a single document, it just lets the most recent change win.
+
+Usually we split objects into lots of small documents to make it easier for changes to coexist without clobbering each other.
+
+In this app, each timer is stored in a single Earthstar document, as JSON, though it has several properties (name, time, isDone).  This means any change to a timer will clobber other simultaneous changes (e.g. you can't have two people changing different parts of a timer at the same time).  The use case is mainly personal so this is fine.
 
 We use ephemeral documents that last 7 days to avoid clutter building up.  Normally you will only want to see today's tasks anyway.
 
