@@ -1,4 +1,3 @@
-
 /* overall settings */
 :root {
     --test-border-width: 0px;
@@ -58,9 +57,9 @@
     --base05: #bbb;
     --base06: #ddd;
     --base07: #fff;
-    --base08: #CC342B;
-    --base09: #F96A38;
-    --base0A: #FBA922;
+    --base08: #cc342b;
+    --base09: #f96a38;
+    --base0A: #fba922;
     --base0B: #918b3b;
     --base0C: #159393;
     --base0D: #516aec;
@@ -124,10 +123,10 @@
                    /* --base0E       purple */
     --cCode:      var(--base0F);  /* magenta or brown */
 
-    --cRelax: #224024;  /* green */
-    --cSoon: #b80;  /* yellow */
-    --cLate: #c22;  /* red */
-    --cDone: #222;  /* dark gray */
+    --cRelax: #224024; /* green */
+    --cSoon: #b80; /* yellow */
+    --cLate: #c22; /* red */
+    --cDone: #222; /* dark gray */
 
     /*
     export let PIECHART_DURATION = 60 * MINUTE;

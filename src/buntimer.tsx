@@ -36,16 +36,21 @@ const DAY = 24 * HOUR;
 let remap = (x: number, oldLo: number, oldHi: number, newLo: number, newHi: number): number => {
     let pct = (x - oldLo) / (oldHi - oldLo);
     return newLo + pct * (newHi - newLo);
-}
+};
 let clamp = (x: number, lo: number, hi: number) => {
     // this works even if lo and hi are in the wrong order
     let lo2 = Math.min(lo, hi);
     let hi2 = Math.max(lo, hi);
     return Math.max(lo2, Math.min(hi2, x));
-}
+};
 
-let remapAndClamp = (x: number, oldLo: number, oldHi: number, newLo: number, newHi: number): number =>
-    clamp(remap(x, oldLo, oldHi, newLo, newHi), newLo, newHi);
+let remapAndClamp = (
+    x: number,
+    oldLo: number,
+    oldHi: number,
+    newLo: number,
+    newHi: number
+): number => clamp(remap(x, oldLo, oldHi, newLo, newHi), newLo, newHi);
 
 //================================================================================
 // TYPES
@@ -131,14 +136,16 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
     useRerenderEvery(10 * SEC);
 
     if (currentWorkspace === null || keypair === null) {
-        return <p>
-            To use this app,
-            <ol>
-                <li>Join or create a workspace</li>
-                <li>Create a user, or sign in as a user, from the upper right.</li>
-            </ol>
-            Then you can add timers.
-        </p>;
+        return (
+            <p>
+                To use this app,
+                <ol>
+                    <li>Join or create a workspace</li>
+                    <li>Create a user, or sign in as a user, from the upper right.</li>
+                </ol>
+                Then you can add timers.
+            </p>
+        );
     }
 
     let timers: Timer[] = [];
@@ -158,7 +165,6 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
         }
         // sort oldest first
         timers.sort((a: Timer, b: Timer) => a.endTime - b.endTime);
-
     } else {
         // demo timers for testing
         timers = [
@@ -244,12 +250,12 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
             let newTimer = TimerApi.makeNew();
             await TimerApi.save(keypair, storage, newTimer);
         }
-    }
+    };
     let saveTimer = async (timer: Timer) => {
         if (keypair !== null && storage !== null) {
             await TimerApi.save(keypair, storage, timer);
         }
-    }
+    };
     let deleteTimer = async (id: string) => {
         if (keypair !== null && storage !== null) {
             // TODO: this isn't making this component re-render.
@@ -259,7 +265,7 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
             await TimerApi.delete(keypair, storage, id);
             //forceRender();
         }
-    }
+    };
 
     return (
         <VBox size="3" style={{ userSelect: 'none' }}>
@@ -280,7 +286,8 @@ export let TimerApp: React.FunctionComponent<any> = (props: any) => {
                         >
                             Add timer
                         </button>
-                        <button type="button"
+                        <button
+                            type="button"
                             className="buttonHollowFaint"
                             onClick={() => setShowDone(!showDone)}
                         >
@@ -321,7 +328,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     let textOpacity: number = 0.45;
     if (relMinutes <= 15) {
         // yellow
-        colorR= 'var(--cSoon)';
+        colorR = 'var(--cSoon)';
         textOpacity = 1.0;
     }
     if (relMinutes < 0) {
@@ -340,7 +347,9 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     }
     let grad_degrees = 90 + 15 * (config.BARS_LEFT_TO_RIGHT ? 1 : -1);
     let progress = remapAndClamp(relMinutes, 0, 60, 0, 97);
-    if (config.BARS_LEFT_TO_RIGHT) { progress = 100 - progress; }
+    if (config.BARS_LEFT_TO_RIGHT) {
+        progress = 100 - progress;
+    }
     // simple changing gradient
     //let background = `linear-gradient(${grad_degrees}deg, ${colorL} 0% ${progress}%, ${colorR} ${progress}% 100%)`
 
@@ -354,12 +363,11 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         backgroundColor: colorR,
         backgroundImage: background,
         backgroundSize: '206% 100%',
-        backgroundPosition: `${100-progress}% 50%`,  // 0 shows the left side, 100 shows the right side
+        backgroundPosition: `${100 - progress}% 50%`, // 0 shows the left side, 100 shows the right side
         transitionProperty: 'background-position, background-color',
         transitionDuration: '0.4s',
-        transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)',  // hard start, gentle ease out
+        transitionTimingFunction: 'cubic-bezier(0.33, 1, 0.68, 1)', // hard start, gentle ease out
     };
-
 
     let onClickDone = () => {
         saveTimer({
@@ -374,9 +382,11 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
     let onClickRelTime = () => {
         // ask user for new relative time
         let minString = prompt('Minutes from now (or negative for the past)');
-        if (minString === null || minString.trim() === '') { return; }
+        if (minString === null || minString.trim() === '') {
+            return;
+        }
         if (minString.endsWith('m')) {
-            minString = minString.slice(0, minString.length-1);
+            minString = minString.slice(0, minString.length - 1);
         }
 
         // string to number
@@ -387,14 +397,16 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         let updatedTimer: Timer = {
             ...timer,
             endTime: Date.now() + min * MIN,
-        }
+        };
         saveTimer(updatedTimer);
     };
 
     let onClickAbsTime = (existing: string) => {
         // ask user for new absolute time
         let newTimeString = prompt('Time', existing);
-        if (newTimeString === null || newTimeString.trim() === '') { return; }
+        if (newTimeString === null || newTimeString.trim() === '') {
+            return;
+        }
 
         // parse to an absolute time in unix ms
         let newTime = parseTime(newTimeString);
@@ -403,14 +415,16 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         let updatedTimer: Timer = {
             ...timer,
             endTime: newTime,
-        }
+        };
         saveTimer(updatedTimer);
     };
 
     let onClickName = (existing: string) => {
         // ask user for new name
         let newName = prompt('Description', existing);
-        if (newName === null || newName.trim() === '') { return; }
+        if (newName === null || newName.trim() === '') {
+            return;
+        }
         saveTimer({
             ...timer,
             name: newName.trim(),
@@ -424,7 +438,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
 
     return (
         <Box style={bgStyle} size="2">
-            <VBox size={(relMinutes < 0 && !timer.isDone) ? "3" : "0"}>
+            <VBox size={relMinutes < 0 && !timer.isDone ? '3' : '0'}>
                 <Cluster wrap={false} valign="baseline">
                     <button
                         className="notButton"
@@ -443,7 +457,7 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
                         style={{ width: '7ch', textAlign: 'right', opacity: absTimeOpacity }}
                         className="notButton"
                         onClick={() => onClickAbsTime(absTime)}
-                        >
+                    >
                         <i>{absTime}</i>
                     </button>
                     <button
@@ -475,4 +489,3 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
         </Box>
     );
 };
-

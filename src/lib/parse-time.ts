@@ -1,6 +1,6 @@
 import NamedRegExp from 'named-regexp-groups';
 
-export let parseTime = (s : string) : number | null => {
+export let parseTime = (s: string): number | null => {
     // parse times like:
     // 1   1a   1 pm   1:00   1:00 p   1:00PM    1 p.m.   1p.m.
     // if am/pm are not specified, interpret it as a 24 hour time (e.g. "11" -> 11am, "12" -> noon, "13" -> 1pm)
@@ -46,4 +46,4 @@ export let parseTime = (s : string) : number | null => {
     //log(date);
     //log(date.getTime());
     return date.getTime();
-}
+};
