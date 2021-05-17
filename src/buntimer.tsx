@@ -23,6 +23,7 @@ import {
 } from './lib/layouts';
 
 import { config } from './config';
+import { parseTime } from './lib/parse-time';
 
 //================================================================================
 // CONSTANTS AND HELPERS
@@ -372,28 +373,47 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
 
     let onClickRelTime = () => {
         // ask user for new relative time
-        let newTime = prompt('Minutes from now');
-        if (newTime === null) { return; }
-        if (newTime.endsWith('m')) {
-            newTime = newTime.slice(0, newTime.length-1);
+        let minString = prompt('Minutes from now (or negative for the past)');
+        if (minString === null || minString.trim() === '') { return; }
+        if (minString.endsWith('m')) {
+            minString = minString.slice(0, minString.length-1);
         }
-        let min = +newTime;
+
+        // string to number
+        let min = +minString;
         if (isNaN(min)) { return; }
-        let newTimer: Timer = {
+
+        // save
+        let updatedTimer: Timer = {
             ...timer,
             endTime: Date.now() + min * MIN,
         }
-        saveTimer(newTimer);
+        saveTimer(updatedTimer);
     };
 
-    let onClickName = () => {
+    let onClickAbsTime = (existing: string) => {
+        // ask user for new absolute time
+        let newTimeString = prompt('Time', existing);
+        if (newTimeString === null || newTimeString.trim() === '') { return; }
+
+        // parse to an absolute time in unix ms
+        let newTime = parseTime(newTimeString);
+        if (newTime === null) { return; }
+
+        let updatedTimer: Timer = {
+            ...timer,
+            endTime: newTime,
+        }
+        saveTimer(updatedTimer);
+    };
+
+    let onClickName = (existing: string) => {
         // ask user for new name
-        let newName = prompt('Description');
+        let newName = prompt('Description', existing);
         if (newName === null || newName.trim() === '') { return; }
-        newName = newName.trim();
         saveTimer({
             ...timer,
-            name: newName,
+            name: newName.trim(),
         });
     };
 
@@ -422,12 +442,13 @@ let TimerView: React.FunctionComponent<TimerViewProps> = (props: TimerViewProps)
                     <button
                         style={{ width: '7ch', textAlign: 'right', opacity: absTimeOpacity }}
                         className="notButton"
+                        onClick={() => onClickAbsTime(absTime)}
                         >
                         <i>{absTime}</i>
                     </button>
                     <button
                         style={{ marginLeft: '1.3ch', minWidth: '5ch', opacity: nameOpacity }}
-                        onClick={onClickName}
+                        onClick={() => onClickName(timer.name)}
                         className="notButton"
                     >
                         {timer.name}

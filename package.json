@@ -11,6 +11,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "earthstar": "^6.3.5",
+    "named-regexp-groups": "^1.0.5",
     "react": "~16.13.1",
     "react-dom": "~16.13.1",
     "react-earthstar": "^2.0.1",
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@types/named-regexp-groups": "^1.0.0",
     "prettier": "^2.2.1"
   }
 }
