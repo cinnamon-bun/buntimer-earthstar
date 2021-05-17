@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "earthstar": "^6.3.5",
+    "earthstar": "^6.8.2",
     "named-regexp-groups": "^1.0.5",
     "react": "~16.13.1",
     "react-dom": "~16.13.1",
